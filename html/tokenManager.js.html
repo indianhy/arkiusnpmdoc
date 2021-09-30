@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: tokenManager.js</title>
+
+    <script src="../scripts/prettify/prettify.js"> </script>
+    <script src="../scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="../styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="../styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: tokenManager.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { ManagerABI }   = require('../abi/Manager');
+const validate         = require('./validate');
+const util             = require('./util')
+const { chain , web3 } = require('../config/config');
+
+var Manager = new web3.eth.Contract(ManagerABI, chain.TokenManager);
+
+/**
+ * This function returns the amount of Arkius tokens received by the caller when 
+ * `amount` avax is provided.
+ * 
+ * @param {uint} amount  amount of avax of which the caller wants to buy the Arkius tokens.
+ * @returns amount of Arkius Token received by the caller, when `amount` avax is supplied.
+ */
+const calculateBuyAmount = async(amount) => {
+    try {
+        validate.isValidNumber(amount)
+
+        return await Manager.methods.calculateBuyAmount(amount).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns represents the value of 1 token.
+ */
+const decimals = async() => {
+    try {
+
+        return await Manager.methods.decimals().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+const getReserveBalance = async() => {
+    try {
+
+        return await Manager.methods.getReserveBalance().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns address of Governanve.
+ */
+const govAddress = async() => {
+    try {
+
+        return await Manager.methods.govAddress().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns address of membership contract.
+ */
+const membershipTokenAddress = async() => {
+    try {
+
+        return await Manager.methods.membershipTokenAddress().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * Returns true if the initial price is set for the token.
+ * A member can't buy token unless it returns true.
+ * 
+ * @returns true or false
+ */
+const initialSupplyGiven = async() => {
+    try {
+
+        return await Manager.methods.initialSupplyGiven().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns address of owner of contract.
+ */
+const owner = async() => {
+    try {
+
+        return await Manager.methods.owner().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns address of token contract.
+ */
+const tokenAddress = async() => {
+    try {
+
+        return await Manager.methods.tokenAddress().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+const version = async() => {
+    try {
+
+        return await Manager.methods.version().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * The function mints `value` token in `account`.
+ * Note:- Minted Tokens are locked tokens and can't be transferred
+ * unless and until either sender or receiver are validated. 
+ * Requirement:- The caller needs to be the owner of the contract.
+ * 
+ * @param {address} account address in which tokens will be minted.
+ * @param {uint}    value   amount of tokens that are to be minted.
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const mintToken = async(account, value, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(account)
+        validate.isValidNumber(value)
+
+        const receipt = await Manager.methods
+                        .mintToken(account, value)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * The function burns `value` token from `account`.
+ * Note:- Only unlocked tokens can be burned.
+ * Requirement:- The caller needs to be the owner of the contract.
+ * 
+ * @param {address} account address from which tokens will be burned.
+ * @param {uint}    value   amount of tokens that are to be burned.
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const burnToken = async(account, value, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(account)
+        validate.isValidNumber(value)
+
+        const receipt = await Manager.methods
+                        .burnToken(account, value)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Accept the ownership of the contract. This works only if owner
+ * of the contract nominated someone to be an owner of the contract.
+ * 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const acceptOwnership = async(index = 0, gasReq = 300000) => {
+    try {
+        const receipt = await Manager.methods
+                    .acceptOwnership()
+                    .send({from : (await util.getAccountAddress(index)), gas:gasReq  });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Nominate other member of the organization to be the owner of the contract.
+ * Only the current owner can nominate other members of the organisation.
+ * 
+ * @param {address} account address of the member of the organisation. It can be a contract also. 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const nominateNewOwner = async(address, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(address)
+
+        const receipt = await Manager.methods
+                    .nominateNewOwner(address)
+                    .send({from : (await util.getAccountAddress(index)), gas:gasReq  });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Owner Quitting the ownership of the contract.
+ * 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const renounceOwnership = async(index = 0, gasReq = 300000) => {
+    try{
+        const receipt = await Manager.methods
+                        .renounceOwnership()
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq  });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * It can update the address of the governance.
+ * Requirement:- The caller must be the owner of the tokenManager contract.
+ * 
+ * @param {address} address address of the governance.
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const updateGovernanceAddress = async(address, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(address)
+
+        const receipt = await Manager.methods
+                        .updateGovernanceAddress(address)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * It can update the address of the token contract.
+ * Requirement:- The caller must be the owner of the tokenManager contract.
+ * 
+ * @param {address} address address of the token contract.
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const updateTokenAddress = async(address, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(address)
+
+        const receipt = await Manager.methods
+                        .updateTokenAddress(address)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * It can update the address of the membership contract.
+ * Requirement:- The caller must be the owner of the tokenManager contract.
+ * 
+ * @param {address} address address of the membership contract.
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const updateMembershipTokenAddress = async(address, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(address)
+
+        const receipt = await Manager.methods
+                        .updateMembershipTokenAddress(address)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * This function is used to buy buy Arkius tokens with Avax.
+ * Member can send Avax and can receive Tokens in exchange.
+ * Note:- If there is sudden increase in price of Arkius Token,
+ * and due to this inflation the member will be getting less tokens than
+ * `minReceived`, in this condition the function will revert else the member
+ * will receive tokens as per the Avax provided.
+ * 
+ * @param {uint} minReceived  Minimum tokens member is expecting to receive.
+ * @param {uint} amount       Amount of avax for which user wants to buy tokens.
+ * @param {uint} index        specify the account number index if you logged
+ *                            in with multiple accounts, default is 0.
+ * @param {uint} gasReq       gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const buy = async(minReceived, amount, index = 0, gasReq = 300000) => {
+    try {
+        validate.isValidNumber(amount)
+        validate.isValidNumber(minReceived)
+
+        // web3.eth.sendTransaction({from, to, value}, function(error, result) {
+        //         if(error) console.log(error)
+        //         else console.log(result)
+        // });
+
+        const amnt = web3.utils.toWei(amount, "ether")
+
+        const receipt = await Manager.methods
+                        .buy(minReceived)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq, value: amnt });
+        return receipt;
+
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * This function is for setting the initial price for the Arkius Tokens.
+ * Requirement:- The caller must be the owner of the tokenManager contract.
+ * Not:- The tokens will be transferred from LLC to Governance and those
+ * member who buys tokens are transferred from governance to member wallet.
+ * 
+ * @param {uint} reserveSupply  amount of Avax needed to buy `initialSupply` tokens.
+ * @param {uint} initialSupply  amount of tokens to be transfrred to Governance address.
+ * @param {uint} index          specify the account number index if you logged
+ *                              in with multiple accounts, default is 0.
+ * @param {uint} gasReq         gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const giveSupply = async(reserveSupply, initialSupply, index = 0, gasReq = 300000) => {
+    try {
+        validate.isValidNumber(initialSupply)
+        validate.isValidNumber(reserveSupply)
+
+        const receipt = await Manager.methods
+                        .giveSupply(reserveSupply, initialSupply)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+
+    } catch(error) {
+        throw error
+    }
+}
+
+module.exports = {  calculateBuyAmount,
+                    decimals,
+                    getReserveBalance,
+                    govAddress,
+                    initialSupplyGiven,
+                    membershipTokenAddress,
+                    owner,
+                    tokenAddress,
+                    version,
+
+                    acceptOwnership,
+                    burnToken, 
+                    buy,
+                    giveSupply,
+                    mintToken,
+                    nominateNewOwner,
+                    renounceOwnership,
+                    updateGovernanceAddress,
+                    updateMembershipTokenAddress,
+                    updateTokenAddress
+                }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav style="position:fixed;right:0;overflow-y:scroll;height:100%;padding-bottom: 40px; margin-top: 0px">
+    <h2><a href="../index1.html">Home</a></h2>
+    <h3>Functions</h3>
+    <ul>
+        <li><a href="tokenManager.html#acceptOwnership">acceptOwnership</a></li>
+        <li><a href="tokenManager.html#burnToken">burnToken</a></li>
+        <li><a href="tokenManager.html#buy">buy</a></li>
+        <li><a href="tokenManager.html#calculateBuyAmount">calculateBuyAmount</a></li>
+        <li><a href="tokenManager.html#decimals">decimals</a></li>
+        <li><a href="tokenManager.html#giveSupply">giveSupply</a></li>
+        <li><a href="tokenManager.html#govAddress">govAddress</a></li>
+        <li><a href="tokenManager.html#initialSupplyGiven">initialSupplyGiven</a></li>
+        <li><a href="tokenManager.html#membershipTokenAddress">membershipTokenAddress</a></li>
+        <li><a href="tokenManager.html#mintToken">mintToken</a></li>
+        <li><a href="tokenManager.html#nominateNewOwner">nominateNewOwner</a></li>
+        <li><a href="tokenManager.html#owner">owner</a></li>
+        <li><a href="tokenManager.html#renounceOwnership">renounceOwnership</a></li>
+        <li><a href="tokenManager.html#tokenAddress">tokenAddress</a></li>
+        <li><a href="tokenManager.html#updateGovernanceAddress">updateGovernanceAddress</a></li>
+        <li><a href="tokenManager.html#updateMembershipTokenAddress">updateMembershipTokenAddress</a></li>
+        <li><a href="tokenManager.html#updateTokenAddress">updateTokenAddress</a></li>
+    </ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Sep 01 2021 13:16:09 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="../scripts/linenumber.js"> </script>
+</body>
+</html>

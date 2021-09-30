@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Member.js</title>
+
+    <script src="../scripts/prettify/prettify.js"> </script>
+    <script src="../scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="../styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="../styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Member.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { MemberABI }    = require('../../abi/MemberNFT');
+const util             = require('../util')
+const validate         = require('../validate');
+const { chain , web3 } = require('../../config/config');
+
+var MemberNFT = new web3.eth.Contract(MemberABI, chain.MemberNFT);
+
+/**
+ * 
+ * @param {address} account account address of the user. 
+ * @returns the NFT Id of `account`
+ */
+const id = async(account) => {
+    try {
+        await validate.isAddress(account)
+
+        return await MemberNFT.methods.memberIdOf(account).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @param {uint} id id of the membership NFT token.
+ * @returns address of the user who created `id`.
+ */
+const creator = async(id) => {
+    try {
+        validate.isValidNumber(id);
+
+        return await MemberNFT.methods.creator(id).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns the address of attention seeker NFT contract.
+ */
+const seekerAddress = async() => {
+    try {
+        return await MemberNFT.methods.seekerAddress().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns The symbol of the membership token, usually shorter form of name.
+ */
+const symbol = async() => {
+    try {
+        return await MemberNFT.methods.symbol().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns address of the owner of the contract.
+ */
+const owner = async() => {
+    try {
+        return await MemberNFT.methods.owner().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns array of id of all the member with memberNFT tokens.
+ */
+const allMembers = async() => {
+    try {
+        return await MemberNFT.methods.getAllMembers().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns Uri of the contract.
+ */
+const contractUri = async() => {
+    try {
+        return await MemberNFT.methods.contractURI().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns The name of the Token
+ */
+const name = async() => {
+    try {
+        return await MemberNFT.methods.name().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * This represents the balance of `id` in `account`.
+ * 
+ * @param {address} account address of the person, whose balance is to be checked.
+ * @param {uint}    id      membership NFT Id number.
+ * @returns the balance of `id` in `account`
+ */
+const balance = async(account, id) => {
+    try {
+        await validate.isAddress(account);
+        validate.isValidNumber(id);
+
+        return await MemberNFT.methods.balanceOf(account, id).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns the address of certifier NFT contract.
+ */
+const certifierAddress = async() => {
+    try {
+        return await MemberNFT.methods.certifierAddress().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @param {uint} id id of membership NFT token. 
+ * @returns URI of membership NFT token.
+ */
+const uri = async(id) => {
+    try {
+        validate.isValidNumber(id);
+
+        return await MemberNFT.methods.uri(id).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns token URI Prefix.
+ */
+const tokenUriPrefix = async() => {
+    try {
+        return await MemberNFT.methods.tokenURIPrefix().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * This represents the balance of ids[x] in accounts[x].
+ * This is used for checking balance of multiple accounts.
+ * 
+ * @param {address[]} accounts  array of the addresses of user.
+ * @param {uint[]}    ids       array of membership NFT ids.
+ * @returns the balance of ids[x] in the corresponding accounts[x].
+ */
+const balanceBatch = async(accounts, ids) => {
+    try {
+        validate.isArray(accounts);
+        validate.isArray(ids);
+        if (accounts.length != ids.length) throw "Length Mismatch"
+
+        for(var x = 0; x &lt; ids.length; x++) {
+            await validate.isAddress(accounts[x]);
+            validate.isValidNumber(ids[x]);
+        };
+
+        return await MemberNFT.methods.balanceOfBatch(accounts,ids).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * Accept the ownership of the contract. This works only if owner
+ * of the contract nominated someone to be an owner of the contract.
+ * 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const acceptOwnership = async(index = 0, gasReq = 300000) => {
+    try {
+        const receipt = await MemberNFT.methods
+                    .acceptOwnership()
+                    .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Nominate other member of the organization to be the owner of the contract.
+ * Only the current owner can nominate other members of the organisation.
+ * 
+ * @param {address} account address of the member of the organisation. It can be a contract also. 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const nominateNewOwner = async(account, index = 0, gasReq = 300000) => {
+    try {
+        validate.isAddress(account);
+
+        const receipt = await MemberNFT.methods
+                    .nominateNewOwner(account)
+                    .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Owner Quitting the ownership of the contract.
+ * 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const renounceOwnership = async(index = 0, gasReq = 300000) => {
+    try{
+        const receipt = await MemberNFT.methods
+                        .renounceOwnership()
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Used to mint membership NFT token. 
+ * Anyone can mint a membership token.
+ * Only 1 Membership token can be minted from one address.
+ * 
+ * @param {string} uri     Uniform Resource Identifier.
+ * @param {uint}   index   specify the account number index if you logged
+ *                         in with multiple accounts, default is 0.
+ * @param {uint}   gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const mint = async(uri, index = 0, gasReq = 300000) => {
+    try {
+        validate.isString(uri);
+
+        const receipt = await MemberNFT.methods
+                        .mint(uri)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Used to burn membership NFT token. 
+ * Anyone who has minted a membership token can burn their token.
+ * Only 1 Membership token can be burned from one address.
+ * 
+ * @param {address} account address of account whose token is to be burned.
+ * @param {uint}    value   amount of token that is to burn. Only 1 token can be burned.
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const burn = async(account, value, index = 0, gasReq = 300000) => {
+    try {
+        validate.isAddress(account);
+        validate.isValidNumber(value);
+
+        const receipt = await MemberNFT.methods
+                        .burn(account, value)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * It can update the address of the Certifier Contract.
+ * Requirement:- The caller must be the owner of the membership contract.
+ * 
+ * @param {address} address address of the Certifier Contract.
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const setCertifierToken = async(address, index = 0, gasReq = 300000) => {
+    try {
+        validate.isAddress(address);
+
+        const receipt = await MemberNFT.methods
+                        .setCertifierToken(address)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * It can update the address of the Attention Seeker contract.
+ * Requirement:- The caller must be the owner of the membership contract.
+ * 
+ * @param {address} address address of the Attention Seeker contract.
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const setSeekerToken = async(address, index = 0, gasReq = 300000) => {
+    try {
+        validate.isAddress(address);
+
+        const receipt = await MemberNFT.methods
+                        .setSeekerToken(address)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Set the URI for the membership contract.
+ * Requirement:- The caller must be the owner of the membership contract.
+ * 
+ * @param {string} uri    Uniform Resource Identifier.
+ * @param {uint}   index  specify the account number index if you logged
+ *                        in with multiple accounts, default is 0.
+ * @param {uint}   gasReq gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const setContractURI = async(uri, index = 0, gasReq = 300000) => {
+    try {
+        validate.isString(uri);
+
+        const receipt = await MemberNFT.methods
+                        .setContractURI(uri)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Set the URI prefix for the membership token.
+ * Example:- 'https://'
+ * Requirement:- The caller must be the owner of the membership contract.
+ * 
+ * @param {string} uri    Uniform Resource Identifier.
+ * @param {uint}   index  specify the account number index if you logged
+ *                        in with multiple accounts, default is 0.
+ * @param {uint}   gasReq gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const setTokenURIPrefix = async(uri, index = 0, gasReq = 300000) => {
+    try {
+        validate.isString(uri);
+
+        const receipt = await MemberNFT.methods
+                        .setTokenURIPrefix(uri)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+module.exports = {  balance,
+                    balanceBatch,
+                    certifierAddress, 
+                    contractUri, 
+                    creator, 
+                    allMembers, 
+                    id,  
+                    name, 
+                    owner, 
+                    seekerAddress, 
+                    symbol, 
+                    tokenUriPrefix, 
+                    uri, 
+                    
+                    acceptOwnership, 
+                    burn, 
+                    mint, 
+                    nominateNewOwner, 
+                    renounceOwnership, 
+                    setCertifierToken, 
+                    setContractURI, 
+                    setSeekerToken,
+                    setTokenURIPrefix
+                }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav style="position:fixed;right:0;overflow-y:scroll;height:100%;padding-bottom: 40px; margin-top: 0px">
+    <h2><a href="../index1.html">Home</a></h2>
+    <h3>Functions</h3>
+    <ul>
+        <li><a href="member.html#acceptOwnership">acceptOwnership</a></li>
+        <li><a href="member.html#allMembers">allMembers</a></li>
+        <li><a href="member.html#balance">balance</a></li>
+        <li><a href="member.html#balanceBatch">balanceBatch</a></li>
+        <li><a href="member.html#burn">burn</a></li>
+        <li><a href="member.html#certifierAddress">certifierAddress</a></li>
+        <li><a href="member.html#contractUri">contractUri</a></li>
+        <li><a href="member.html#creator">creator</a></li>
+        <li><a href="member.html#id">id</a></li>
+        <li><a href="member.html#mint">mint</a></li>
+        <li><a href="member.html#name">name</a></li>
+        <li><a href="member.html#nominateNewOwner">nominateNewOwner</a></li>
+        <li><a href="member.html#owner">owner</a></li>
+        <li><a href="member.html#renounceOwnership">renounceOwnership</a></li>
+        <li><a href="member.html#seekerAddress">seekerAddress</a></li>
+        <li><a href="member.html#setCertifierToken">setCertifierToken</a></li>
+        <li><a href="member.html#setContractURI">setContractURI</a></li>
+        <li><a href="member.html#setSeekerToken">setSeekerToken</a></li>
+        <li><a href="member.html#setTokenURIPrefix">setTokenURIPrefix</a></li>
+        <li><a href="member.html#symbol">symbol</a></li>
+        <li><a href="member.html#tokenUriPrefix">tokenUriPrefix</a></li>
+        <li><a href="member.html#uri">uri</a></li>
+    </ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Mon Aug 30 2021 15:58:29 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="../scripts/linenumber.js"> </script>
+</body>
+</html>

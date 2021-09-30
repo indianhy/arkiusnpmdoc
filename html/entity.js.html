@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: entity.js</title>
+
+    <script src="../scripts/prettify/prettify.js"> </script>
+    <script src="../scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="../styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="../styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: entity.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { EntityABI }    = require('../abi/Entity');
+const util             = require('./util')
+const { chain , web3 } = require('../config/config');
+const validate         = require('./validate');
+
+var Entity = new web3.eth.Contract(EntityABI, chain.Entity);
+
+/**
+ * 
+ * @returns address of the owner of the entity contract.
+ */
+const owner = async() => {
+    try {
+        return await Entity.methods.owner().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns all entities created by Attention Seeker.
+ */
+const allEntities = async() => {
+    try {
+        return await Entity.methods.getAllEntities().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns address of the campaign contract set by the owner.
+ */
+const campaignContract = async() => {
+    try {
+        return await Entity.methods.campaignContract().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns address of the certification contract set by the owner.
+ */
+const certificationContract = async() => {
+    try {
+        return await Entity.methods.certificationContract().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @param {uint} entityId Id of the entity.
+ * @returns true if entity exist.
+ */
+const entityExist = async(entityId) => {
+    try {
+        validate.isValidNumber(entityId)
+
+        return await Entity.methods.entityExist(entityId).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @param {uint} entityId Id of the Entity.
+ * @returns details of the `entityId`.
+ */
+const getEntity = async(entityId) => {
+    try {
+        validate.isValidNumber(entityId)
+
+        return Entity.methods.getEntity(entityId).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @param {address} account address of the attention seeker.
+ * @returns array of entityId created by `account`.
+ */
+const seekerEntities = async(account) => {
+    try {
+        await validate.isAddress(account)
+
+        return Entity.methods.getAttentionSeekerEntities(account).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns address of the attentionSeeker contract set by the owner.
+ */
+const seekerContract = async() => {
+    try {
+        return await Entity.methods.seekerContract().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * Update the address of the campaign contract. 
+ * Requirement:- Caller must be the owner of the contract.
+ *  
+ * @param {address} address address of the campaign contract. 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const setCampaignContractAddress = async(address, index = 0, gasRequired = 300000) => {
+    try {
+        await validate.isAddress(address)
+
+        const receipt = await Entity.methods
+                    .setCampaignContractAddress(address)
+                    .send({from : (await util.getAccountAddress(index)), gas:gasRequired });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Update the address of the certification contract. 
+ * Requirement:- Caller must be the owner of the contract.
+ *  
+ * @param {address} address address of the certification contract. 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const setCertification = async(address, index = 0, gasRequired = 300000) => {
+    try {
+        await validate.isAddress(address)
+
+        const receipt = await Entity.methods
+                    .setCertification(address)
+                    .send({from : (await util.getAccountAddress(index)), gas:gasRequired });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Used for creating a new entity.
+ * Requirement:- The caller must be an Attention Seeker.
+ * 
+ * @param {string}  title        title of the entity.
+ * @param {uint}    type         type of the entity.
+ *                               {0 - product , 1 - company , 2 - campaign}
+ * @param {string}  description  description of the entity.
+ * @param {string}  metadata     metadata of the entity.
+ * @param {address} account      address of the caller(optional).
+ * @param {uint}    index        specify the account number index if you logged
+ *                               in with multiple accounts, default is 0.
+ * @param {uint}    gasReq       gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const createEntity = async(title, type, description, metadata, account = "0x0000000000000000000000000000000000000000", index = 0, gasRequired = 300000) => {
+    try {
+        await validate.isAddress(account)
+        validate.isValidNumber(type)
+        validate.isString(title)
+        validate.isString(description)
+        validate.isString(metadata)
+
+        timestamp = Math.round(new Date().getTime() / 1000);
+        const receipt = await Entity.methods
+                        .createEntity(timestamp, title, type, description, metadata, account)
+                        .send({from: (await util.getAccountAddress(index)), gas:gasRequired });
+        return receipt;
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * edit the existing entity.
+ * Requirement:- caller must be the owner of the entity.
+ * 
+ * @param {uint}    entityId     id of the entity.
+ * @param {string}  title        new title of the entity.
+ * @param {string}  description  new description of the entity.
+ * @param {string}  metadata     new metadata of the entity.
+ * @param {address} account      address of the caller(optional).
+ * @param {uint}    index        specify the account number index if you logged
+ *                               in with multiple accounts, default is 0.
+ * @param {uint}    gasReq       gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const editEntity = async(entityId, title, description, metadata, account = "0x0000000000000000000000000000000000000000", index = 0, gasRequired = 300000) => {
+    try {
+        await validate.isAddress(account)
+        validate.isValidNumber(entityId)
+        validate.isString(title)
+        validate.isString(description)
+        validate.isString(metadata)
+
+        const receipt = await Entity.methods
+                        .editEntity(entityId, title, description, metadata, account)
+                        .send({from: (await util.getAccountAddress(index)), gas:gasRequired });
+        return receipt;
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * delete the existing entity.
+ * Requirement:- caller must be the owner of the entity.
+ * 
+ * @param {uint}    entityId  id of the entity.
+ * @param {address} account   address of the caller(optional).
+ * @param {uint}    index     specify the account number index if you logged
+ *                            in with multiple accounts, default is 0.
+ * @param {uint}    gasReq    gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const deleteEntity = async(entityId, account = "0x0000000000000000000000000000000000000000", index = 0, gasRequired = 300000) => {
+    try {
+        await validate.isAddress(account)
+        validate.isValidNumber(entityId)
+
+        const receipt = await Entity.methods
+                        .deleteEntity(entityId, account)
+                        .send({from: (await util.getAccountAddress(index)), gas:gasRequired });
+        return receipt;
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * Update the address of the attentionSeeker contract. 
+ * Requirement:- Caller must be the owner of the contract.
+ *  
+ * @param {address} address address of the attentionSeeker contract. 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const updateSeekerContract = async(address, index = 0, gasRequired = 300000) => {
+    try {
+        await validate.isAddress(address)
+
+        const receipt = await Entity.methods
+                    .updateSeekerContract(address)
+                    .send({from : (await util.getAccountAddress(index)), gas:gasRequired });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+module.exports = {  campaignContract, 
+                    certificationContract, 
+                    entityExist, 
+                    allEntities, 
+                    seekerEntities, 
+                    getEntity,
+                    owner, 
+                    seekerContract,
+
+                    createEntity, 
+                    deleteEntity,
+                    editEntity, 
+                    setCampaignContractAddress, 
+                    setCertification, 
+                    updateSeekerContract
+                }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav style="position:fixed;right:0;overflow-y:scroll;height:100%;padding-bottom: 40px; margin-top: 0px">
+    <h2><a href="../index1.html">Home</a></h2>
+    <h3>Functions</h3>
+    <ul>
+        <li><a href="entity.html#allEntities">allEntities</a></li>
+        <li><a href="entity.html#campaignContract">campaignContract</a></li>
+        <li><a href="entity.html#certificationContract">certificationContract</a></li>
+        <li><a href="entity.html#createEntity">createEntity</a></li>
+        <li><a href="entity.html#deleteEntity">deleteEntity</a></li>
+        <li><a href="entity.html#editEntity">editEntity</a></li>
+        <li><a href="entity.html#entityExist">entityExist</a></li>
+        <li><a href="entity.html#getEntity">getEntity</a></li>
+        <li><a href="entity.html#owner">owner</a></li>
+        <li><a href="entity.html#seekerContract">seekerContract</a></li>
+        <li><a href="entity.html#seekerEntities">seekerEntities</a></li>
+        <li><a href="entity.html#setCampaignContractAddress">setCampaignContractAddress</a></li>
+        <li><a href="entity.html#setCertification">setCertification</a></li>
+        <li><a href="entity.html#updateSeekerContract">updateSeekerContract</a></li>
+    </ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Aug 31 2021 14:30:02 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="../scripts/linenumber.js"> </script>
+</body>
+</html>

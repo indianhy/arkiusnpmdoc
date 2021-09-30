@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: arkiusToken.js</title>
+
+    <script src="../scripts/prettify/prettify.js"> </script>
+    <script src="../scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="../styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="../styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: arkiusToken.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { TokenABI }     = require('../abi/Token');
+const validate         = require('./validate');
+const util             = require('./util')
+const { chain , web3 } = require('../config/config');
+
+var ArkiusToken = new web3.eth.Contract(TokenABI, chain.ArkiusToken);
+
+/**
+ * 
+ * @returns The name of the Token
+ */
+const name = async() =>  { 
+    try {
+        return await ArkiusToken.methods.name().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns The symbol of the token, usually shorter form of name.
+ */
+const symbol = async() =>  { 
+    try {
+        return await ArkiusToken.methods.symbol().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * The number of leading 0's used to represent 1 token.   
+ *                                                     
+ * For Example, If `decimals` equals 2, then the value of 505 is equivalent to 5.05 tokens,
+ * similarly if `decimals` equals 18, then 2 * 10^18 is equivalent to 2 tokens.
+ * 
+ * @returns The decimals used for the token.
+ */
+const decimals = async() =>  { 
+    try {
+        return await ArkiusToken.methods.decimals().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns the amount of tokens in existence.
+ */
+const totalSupply = async() =>  {
+    try { 
+        return await ArkiusToken.methods.totalSupply().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns address of the owner of the token contract.
+ */
+const owner = async() =>  {
+    try { 
+        return await ArkiusToken.methods.owner().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns address of the manager of the token contract.
+ */
+const tokenManager = async() =>  {
+    try { 
+        return await ArkiusToken.methods.tokenManager().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * This represents the balance of locked tokens + Unlocked tokens.
+ * 
+ * @param {address} account address of the person, whose balance is to be checked.
+ * @returns the amount of Arkius Tokens owned by `account`.
+ */
+const balanceOf = async(account) =>  { 
+    try { 
+        await validate.isAddress(account)
+
+        return await ArkiusToken.methods.balanceOf(account).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * This represents the balance of locked tokens.
+ * 
+ * @param {address} account account of the person, whose locked balance is to be checked.
+ * @returns The amount of locked Arkius Tokens owned by `account`.
+ */
+const lockedBalanceOf = async(account) =>  { 
+    try { 
+        await validate.isAddress(account)
+
+        return await ArkiusToken.methods.lockedBalanceOf(account).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * This represents the balance of unlocked tokens.
+ * 
+ * @param {address} account account of the person, whose unlocked balance is to be checked.
+ * @returns The amount of unlocked Arkius Tokens owned by `account`.
+ */
+const unlockedBalanceOf = async(account) =>  { 
+    try { 
+        await validate.isAddress(account)
+
+        return await ArkiusToken.methods.unlockedBalanceOf(account).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * returns true if the account is validated else returns false.
+ * 
+ * @param {address} account address of the user/contract
+ * @returns true/false
+ */
+const ValidatedAddress = async(account) =>  { 
+    try { 
+        await validate.isAddress(account)
+
+        return await ArkiusToken.methods.isValidatedAddress(account).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @param {address} account account of the user whose last snapshot id is to be check. 
+ * @returns the last id of the snapshot taken by the `account`
+ */
+const lastSnapshot = async(account) =>  { 
+    try { 
+        await validate.isAddress(account)
+
+        return await ArkiusToken.methods.lastSnapshot(account).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @param {address} account address of the account whose snapshot is to be check.
+ * @param {uint}    id      last snapshot id of the `account`
+ * @returns the balance of the `account` and totalSupply, at the time when snapshot is being taken.
+ */
+const snapshot = async(account, id) => {
+    try {
+        await validate.isAddress(account)
+        validate.isValidNumber(id)
+
+        return await ArkiusToken.methods.snapshots(account, id).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ *  
+ * @param {address} owner   account that allows the 3rd user to spend from your account.
+ * @param {address} spender  account that has been allowed to transfer amount from others account.
+ * @returns The amount approved by the `owner` that can be used by the `spender` directly from `owner` account.
+ */
+const allowanceOf = async(owner, spender) =>  { 
+    try { 
+        await validate.isAddress(owner)
+        await validate.isAddress(spender)
+
+        return await ArkiusToken.methods.allowance(owner, spender).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * Accept the ownership of the contract. This works only if owner
+ * of the contract nominated someone to be an owner of the contract.
+ * 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const acceptOwnership = async(index = 0, gasReq = 300000) => {
+    try {
+        const receipt = await ArkiusToken.methods
+                    .acceptOwnership()
+                    .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+// const mint = async(account, value, index = 0, gasReq = 300000) => {
+//     try {
+//         await validate.isAddress(account)
+//         validate.isValidNumber(value)
+
+//         const receipt = await ArkiusToken.methods
+//                         .mint(account, value)
+//                         .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+//         return receipt;
+//     } catch(error) {
+//         throw error
+//     }
+// }
+
+/**
+ * Allows the `spender` to use `value` tokens from the caller's account.
+ * For Example, if caller approve 20 tokens to 'xyz' address, then
+ * 'xyz' account can spend 20 tokens directly from the caller's account.
+ * 
+ * @param {address} spender address of the spender. It can be user/contract.
+ * @param {uint}    value   amount that is allowed to transfer.
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const approve = async(spender, value, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(spender)
+        validate.isValidNumber(value)
+
+        const receipt = await ArkiusToken.methods
+                        .approve(spender, value)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+// const burn = async(account, value, index = 0, gasReq = 300000) => {
+//     try {
+//         await validate.isAddress(account)
+//         validate.isValidNumber(value)
+
+//         const receipt = await ArkiusToken.methods
+//                         .burn(account, value)
+//                         .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+//         return receipt;
+//     } catch(error) {
+//         throw error
+//     }
+// }
+
+/**
+ * Decreases the approved amount of the spender from caller's account.
+ * If the caller approved the spender to spend 20 tokens, and the
+ * caller DecreaseAllownace by 5, then spender can spend only 15 tokens.
+ * 
+ * @param {address} spender address of the spender. It can be user/contract.
+ * @param {uint}    amount  amount that is allowed to transfer.   
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const decreaseAllowance = async(spender, amount, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(spender)
+        validate.isValidNumber(amount)
+
+        const receipt = await ArkiusToken.methods
+                        .decreaseAllowance(spender, amount)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Increases the approved amount of the spender from caller's account.
+ * If the caller approved the spender to spend 20 tokens, and the
+ * caller IncreaseAllownace by 5, then spender can spend 25 tokens.
+ * 
+ * @param {address} spender address of the spender. It can be user/contract.
+ * @param {uint}    value   amount that is allowed to transfer.   
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const increaseAllowance = async(spender, value, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(spender)
+        validate.isValidNumber(value)
+
+        const receipt = await ArkiusToken.methods
+                        .increaseAllowance(spender, value)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Nominate other member of the organization to be the owner of the contract.
+ * Only the current owner can nominate other members of the organisation.
+ * 
+ * @param {address} account address of the member of the organisation. It can be a contract also. 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const nominateNewOwner = async(account, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(account)
+
+        const receipt = await ArkiusToken.methods
+                    .nominateNewOwner(account)
+                    .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Owner Quitting the ownership of the contract.
+ * 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const renounceOwnership = async(index = 0, gasReq = 300000) => {
+    try{
+        const receipt = await ArkiusToken.methods
+                        .renounceOwnership()
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Set the token manager for the contract. Only manager can mint token from
+ * the token contract.
+ *      Requirement:- Caller must be the owner of the contract.
+ *  
+ * @param {address} address address of the token manager contract. 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const setTokenManager = async(address, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(address)
+
+        const receipt = await ArkiusToken.methods
+                        .setTokenManager(address)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * This can be used to transfer locked and unlocked token to the recepient.
+ * Conditions:-
+ *      1) If the `recepient` is validated, they/it will receive locked tokens first from caller and then unlocked tokens.
+ *      2) If the caller is validated and sends:-
+ *           i) locked tokens   - `recepient` will receive locked tokens and will change to unlocked tokens.
+ *          ii) unlocked tokens - `recepient` will receive locked tokens first from caller and then unlocked tokens.
+ *      3) If caller and `recepient` are not validated then they will transfer unlocked tokens only.
+ * 
+ * @param {address} recepient address of the recepient.
+ * @param {uint}    amount    amount of tokens that are to be transferred.
+ * @param {uint}    index     specify the account number index if you logged.
+ *                            in with multiple accounts, default is 0.
+ * @param {uint}    gasReq    gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const transfer = async(recepient, amount , index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(recepient)
+        validate.isValidNumber(amount )
+
+        const receipt = await ArkiusToken.methods
+                        .transfer(recepient, amount )
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * to send or receive LOCKED token, the address is need to be validated.
+ * Requirement:- Only contract owner can validate the addresses.
+ * 
+ * @param {address} address address of user/contract who is to be validated. 
+ * @param {uint}    value   either true or false.
+ * @param {uint}    index   specify the account number index if you logged.
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const setAddressValidation = async(address, value, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(address)
+
+        const receipt = await ArkiusToken.methods
+                        .setAddressValidation(address, value)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Transfers the unlocked token to the recepient.
+ * Requirement - caller and `recepient` must not be validated.
+ * If caller or `recepient` is validated, then `recepient` will receive locked tokens from caller
+ * and if `value` exceeds locked balance, then `recepient` will receive unlocked tokens.
+ * 
+ * @param {address} recepient address of the recepient.
+ * @param {uint}    value     amount of tokens that are to be transferred.
+ * @param {uint}    index     specify the account number index if you logged.
+ *                            in with multiple accounts, default is 0.
+ * @param {uint}    gasReq    gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const transferUnlock = async(recepient, value, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(recepient)
+        validate.isValidNumber(value)
+
+        const receipt = await ArkiusToken.methods
+                        .transferUnlock(recepient, value)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Transfers the unlocked token from `sender` to the `recepient`.
+ * Requirement - caller and `recepient` must not be validated.
+ * If `sender` or `recepient` is validated, then `recepient` will receive locked tokens from `sender`
+ * and if `value` exceeds locked balance, then `recepient` will receive unlocked tokens.
+ * 
+ * @param {address} sender    address of the `account` from where the token will be transferred. 
+ * @param {address} recepient address of the `account` where the token will be transferred.
+ * @param {uint}    value     amount of tokens that are to be transferred.
+ * @param {uint}    index     specify the account number index if you logged.
+ *                            in with multiple accounts, default is 0.
+ * @param {uint}    gasReq    gas to execute a transaction.  
+ * @returns receipt of successful transaction in the blockchain.  
+ */
+const transferFromUnlock = async(sender, recepient, value, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(sender)
+        await validate.isAddress(recepient)
+        validate.isValidNumber(value)
+
+        const receipt = await ArkiusToken.methods
+                        .transferFromUnlock(sender, recepient, value)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * This can be used to transfer locked and unlocked token from `sender` to the `recepient`.
+ * Conditions:-
+ *      1) If the `recepient` is validated, they/it will receive locked tokens first from `sender` and then unlocked tokens.
+ *      2) If the `sender` is validated and sends:-
+ *           i) locked tokens   - `recepient` will receive locked tokens and will change to unlocked tokens.
+ *          ii) unlocked tokens - `recepient` will receive locked tokens first from `sender` and then unlocked tokens.
+ *      3) If `sender` and `recepient` are not validated then they will transfer unlocked tokens only.
+ * 
+ * @param {address} sender    address of the `account` from where the token will be transferred. 
+ * @param {address} recepient address of the `account` where the token will be transferred.
+ * @param {uint}    value     amount of tokens that are to be transferred.
+ * @param {uint}    index     specify the account number index if you logged.
+ *                            in with multiple accounts, default is 0.
+ * @param {uint}    gasReq    gas to execute a transaction.   
+ * @returns receipt of successful transaction in the blockchain. 
+ */
+const transferFrom = async(sender, recepient, value, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(sender)
+        await validate.isAddress(recepient)
+        validate.isValidNumber(value)
+
+        const receipt = await ArkiusToken.methods
+                        .transferFrom(sender, recepient, value)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * records the balance of the caller and totalSupply at the time of calling. 
+ * 
+ * @param {uint} index     specify the account number index if you logged.
+ *                            in with multiple accounts, default is 0.
+ * @param {uint} gasReq    gas to execute a transaction.  
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const writeSnapshot = async(index = 0, gasReq = 300000) => {
+    try {
+        const receipt = await ArkiusToken.methods
+                        .writeSnapshot()
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+module.exports = {  allowanceOf,
+                    balanceOf,  
+                    decimals, 
+                    ValidatedAddress,
+                    lastSnapshot, 
+                    lockedBalanceOf,
+                    name, 
+                    owner, 
+                    snapshot, 
+                    symbol, 
+                    tokenManager,
+                    totalSupply, 
+                    unlockedBalanceOf,
+
+                    acceptOwnership, 
+                    approve, 
+                    // burn, 
+                    decreaseAllowance, 
+                    increaseAllowance, 
+                    // mint, 
+                    nominateNewOwner, 
+                    renounceOwnership,
+                    setAddressValidation,
+                    setTokenManager, 
+                    transfer, 
+                    transferFrom, 
+                    transferFromUnlock,
+                    transferUnlock,
+                    writeSnapshot
+                }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav style="position:fixed;right:0;overflow-y:scroll;height:100%;padding-bottom: 40px; margin-top: 0px">
+    <h2><a href="../index1.html">Home</a></h2>
+    <h3>Functions</h3>
+    <ul>
+        <li><a href="arkiusToken.html#acceptOwnership">acceptOwnership</a></li>
+        <li><a href="arkiusToken.html#allowanceOf">allowanceOf</a></li>
+        <li><a href="arkiusToken.html#approve">approve</a></li>
+        <li><a href="arkiusToken.html#balanceOf">balanceOf</a></li>
+        <li><a href="arkiusToken.html#decimals">decimals</a></li>
+        <li><a href="arkiusToken.html#decreaseAllowance">decreaseAllowance</a></li>
+        <li><a href="arkiusToken.html#increaseAllowance">increaseAllowance</a></li>
+        <li><a href="arkiusToken.html#lastSnapshot">lastSnapshot</a></li>
+        <li><a href="arkiusToken.html#lockedBalanceOf">lockedBalanceOf</a></li>
+        <li><a href="arkiusToken.html#name">name</a></li>
+        <li><a href="arkiusToken.html#nominateNewOwner">nominateNewOwner</a></li>
+        <li><a href="arkiusToken.html#owner">owner</a></li>
+        <li><a href="arkiusToken.html#renounceOwnership">renounceOwnership</a></li>
+        <li><a href="arkiusToken.html#setAddressValidation">setAddressValidation</a></li>
+        <li><a href="arkiusToken.html#setTokenManager">setTokenManager</a></li>
+        <li><a href="arkiusToken.html#snapshot">snapshot</a></li>
+        <li><a href="arkiusToken.html#symbol">symbol</a></li>
+        <li><a href="arkiusToken.html#tokenManager">tokenManager</a></li>
+        <li><a href="arkiusToken.html#totalSupply">totalSupply</a></li>
+        <li><a href="arkiusToken.html#transfer">transfer</a></li>
+        <li><a href="arkiusToken.html#transferFrom">transferFrom</a></li>
+        <li><a href="arkiusToken.html#transferFromUnlock">transferFromUnlock</a></li>
+        <li><a href="arkiusToken.html#transferUnlock">transferUnlock</a></li>
+        <li><a href="arkiusToken.html#unlockedBalanceOf">unlockedBalanceOf</a></li>
+        <li><a href="arkiusToken.html#ValidatedAddress">ValidatedAddress</a></li>
+        <li><a href="arkiusToken.html#writeSnapshot">writeSnapshot</a></li>
+    </ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Fri Aug 27 2021 16:42:29 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="../scripts/linenumber.js"> </script>
+</body>
+</html>

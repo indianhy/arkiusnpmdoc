@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: multiwallet.js</title>
+
+    <script src="../scripts/prettify/prettify.js"> </script>
+    <script src="../scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="../styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="../styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: multiwallet.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { MultiwalletABI } = require('../abi/Multiwallet');
+const util               = require('./util')
+const { chain , web3 }   = require('../config/config');
+const validate           = require('./validate');
+
+var Multiwallet = new web3.eth.Contract(MultiwalletABI, chain.Multiwallet);
+
+/**
+ * Returns true/false if `address` can transfer 
+ * tokens to and from multiwallet contract.
+ * 
+ * @param {address} address address of user/contract.
+ * @returns true or false
+ */
+const accessible = async(address) => {
+    try {
+        await validate.isAddress(address)
+
+        return await Multiwallet.methods.accessibleBy(address).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns address of the campaign contract.
+ */
+const campaignContract = async() => {
+    try {
+        return await Multiwallet.methods.campaignContract().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns the owner of the multiwallet contract.
+ */
+const owner = async() =>  {
+    try { 
+        return await Multiwallet.methods.owner().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * types of member:- 
+ *  { 0 - Member
+ *    1 - Certifier
+ *    2 - Attention Seeker
+ *    3 - Treasury
+ *    4 - Devfund
+ *    5 - Arkius PBC License }
+ * 
+ * @param {uint}    type    type of member.
+ * @param {address} account address of member.
+ * @returns the amount that can be claimable by `account`.
+ */
+const claimableBalance = async(type, account) => {
+    try {
+        await validate.isAddress(account)
+        validate.isValidNumber(type)
+
+        return await Multiwallet.methods.claimableBalance(type, account).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @param {uint}    type    type of member.
+ * @param {address} account address of member.
+ * @returns the balance of `account` in multiwallet.
+ */
+const multiwalletBalance = async(type, account) => {
+    try {
+        await validate.isAddress(account)
+        validate.isValidNumber(type)
+
+        return await Multiwallet.methods.multiwalletBalance(type, account).call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * 
+ * @returns the address of governance token contract.
+ */
+const governanceTokenAddress = async() => {
+    try {
+        await validate.isAddress()
+
+        return await Multiwallet.methods.governanceTokenAddress().call();
+    } catch (error) {
+        throw error
+    }
+}
+
+/**
+ * Accept the ownership of the contract. This works only if owner
+ * of the contract nominated someone to be an owner of the contract.
+ * 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction.
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const acceptOwnership = async(index = 0, gasReq = 300000) => {
+    try {
+        const receipt = await Multiwallet.methods
+                    .acceptOwnership()
+                    .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Nominate other member of the organization to be the owner of the contract.
+ * Only the current owner can nominate other members of the organisation.
+ * 
+ * @param {address} account address of the member of the organisation. It can be a contract also. 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const nominateNewOwner = async(account, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(account)
+
+        const receipt = await Multiwallet.methods
+                    .nominateNewOwner(account)
+                    .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Owner Quitting the ownership of the contract.
+ * 
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const renounceOwnership = async(index = 0, gasReq = 300000) => {
+    try{
+        const receipt = await Multiwallet.methods
+                        .renounceOwnership()
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Contract owner gives permission to `address` to call
+ * onlyAllowed functions such as transferring tokens to
+ * and from multiwallet contract.
+ * 
+ * @param {address} address address of the member/contract.
+ * @param {uint}    value   true or false
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const setAllowance = async(address, value, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(address)
+        validate.isValidNumber(value)
+
+        const receipt = await Multiwallet.methods
+                        .setAllowance(address, value)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * It can update the address of the campaign contract.
+ * Requirement:- The caller must be the owner of the multiwallet contract.
+ * 
+ * @param {address} address address of campaign contract.
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const setCampaignContract = async(address, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(address)
+
+        const receipt = await Multiwallet.methods
+                        .setCampaignContract(address)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Function to add values in multiwallet for Member, Certifier and AttentionSeeker
+ * 
+ * @param {address} account Address of the person in whose multiwallet amount is to be added.
+ * @param {uint}    type    RecipientType of the person.
+ * @param {uint}    value   Amount to be added to multiwallet.
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const multiwallet = async(account, type, value, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(account)
+        validate.isValidNumber(type)
+        validate.isValidNumber(value)
+
+        const receipt = await Multiwallet.methods
+                        .multiwallet(account, type, value)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Function to make amount claimable in multiwallet.
+ * 
+ * @param {address} account Address of the person whose multiwallet is to be updated.
+ * @param {uint}    type    Recipient Type of the person.
+ * @param {uint}    value   Amount to be deMultiwalleted(made claimable).
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const deMultiwallet = async(account, type, value, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(account)
+        validate.isValidNumber(value)
+        validate.isValidNumber(type)
+
+        const receipt = await Multiwallet.methods
+                        .deMultiwallet(account, type, value)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Function to transfer claimable amount to the caller.
+ * 
+ * @param {uint} type    Recipient Type of the person.
+ * @param {uint} index   specify the account number index if you logged
+ *                       in with multiple accounts, default is 0.
+ * @param {uint} gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const claim = async(type, index = 0, gasReq = 300000) => {
+    try {
+        validate.isValidNumber(type)
+
+        const receipt = await Multiwallet.methods
+                        .claim(type)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Function to transfer amount within multiwallet and make it claimable.
+ * 
+ * @param {address} fromAccount Address of the member from whom multiwallet amount is to be transferred.
+ * @param {uint}    fromType    Recipient Type of the member from whom multiwallet amount is to be transferred.
+ * @param {address} toAccount   Address of the member where multiwallet amount is to be transferred.
+ * @param {uint}    toType      Recipient Type of the member where multiwallet amount is to be transferred.
+ * @param {uint}    value       Amount to be deMultiwalleted(made claimable).
+ * @param {uint}    index       specify the account number index if you logged
+ *                              in with multiple accounts, default is 0.
+ * @param {uint}    gasReq      gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const multiwalletTransfer = async(fromAccount, fromType, toAccount, toType, value, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(fromAccount)
+        await validate.isAddress(toAccount)
+        validate.isValidNumber(value)
+        validate.isValidNumber(fromType)
+        validate.isValidNumber(toType)
+
+        const receipt = await Multiwallet.methods
+                        .multiwalletTransfer(fromAccount, fromType, toAccount, toType, value)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * It can update the address of the token contract.
+ * Requirement:- The caller must be the owner of the multiwallet contract.
+ * 
+ * @param {address} address address of token contract.
+ * @param {uint}    index   specify the account number index if you logged
+ *                          in with multiple accounts, default is 0.
+ * @param {uint}    gasReq  gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const setGovernanceToken = async(address, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(address)
+
+        const receipt = await Multiwallet.methods
+                        .setGovernanceToken(address)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+/**
+ * Function to directly transfer back amount, instead of making it claimable.
+ * 
+ * @param {address} account     Address of the person whose multiwallet is to be updated.
+ * @param {uint}    type        Recipient Type of the person.
+ * @param {uint}    value       Amount to be deMultiwalleted(made claimable).
+ * @param {uint}    index       specify the account number index if you logged
+ *                              in with multiple accounts, default is 0.
+ * @param {uint}    gasReq      gas to execute a transaction. 
+ * @returns receipt of successful transaction in the blockchain.
+ */
+const unMultiwallet = async(account, type, value, index = 0, gasReq = 300000) => {
+    try {
+        await validate.isAddress(account)
+        validate.isValidNumber(type)
+        validate.isValidNumber(value)
+
+        const receipt = await Multiwallet.methods
+                        .unMultiwallet(account, type, value)
+                        .send({from : (await util.getAccountAddress(index)), gas:gasReq });
+        return receipt;
+    } catch(error) {
+        throw error
+    }
+}
+
+
+module.exports = {  accessible,
+                    campaignContract, 
+                    claimableBalance, 
+                    governanceTokenAddress,
+                    multiwalletBalance, 
+                    owner, 
+
+                    acceptOwnership, 
+                    claim, 
+                    deMultiwallet, 
+                    multiwallet,
+                    multiwalletTransfer, 
+                    nominateNewOwner, 
+                    renounceOwnership, 
+                    setAllowance, 
+                    setCampaignContract, 
+                    setGovernanceToken,
+                    unMultiwallet
+                }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav style="position:fixed;right:0;overflow-y:scroll;height:100%;padding-bottom: 40px; margin-top: 0px">
+    <h2><a href="../index1.html">Home</a></h2>
+    <h3>Functions</h3>
+    <ul>
+        <li><a href="multiwallet.html#acceptOwnership">acceptOwnership</a></li>
+        <li><a href="multiwallet.html#accessible">accessible</a></li>
+        <li><a href="multiwallet.html#campaignContract">campaignContract</a></li>
+        <li><a href="multiwallet.html#claim">claim</a></li>
+        <li><a href="multiwallet.html#claimableBalance">claimableBalance</a></li>
+        <li><a href="multiwallet.html#deMultiwallet">deMultiwallet</a></li>
+        <li><a href="multiwallet.html#governanceTokenAddress">governanceTokenAddress</a></li>
+        <li><a href="multiwallet.html#multiwallet">multiwallet</a></li>
+        <li><a href="multiwallet.html#multiwalletBalance">multiwalletBalance</a></li>
+        <li><a href="multiwallet.html#multiwalletTransfer">multiwalletTransfer</a></li>
+        <li><a href="multiwallet.html#nominateNewOwner">nominateNewOwner</a></li>
+        <li><a href="multiwallet.html#owner">owner</a></li>
+        <li><a href="multiwallet.html#renounceOwnership">renounceOwnership</a></li>
+        <li><a href="multiwallet.html#setAllowance">setAllowance</a></li>
+        <li><a href="multiwallet.html#setCampaignContract">setCampaignContract</a></li>
+        <li><a href="multiwallet.html#setGovernanceToken">setGovernanceToken</a></li>
+        <li><a href="multiwallet.html#unMultiwallet">unMultiwallet</a></li>
+    </ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Aug 31 2021 17:17:24 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="../scripts/linenumber.js"> </script>
+</body>
+</html>

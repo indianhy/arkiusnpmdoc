@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title"><b>Getting Started</b></h1>
+
+    <div>   
+        <h5 style="display: initial; 
+        font: 100 4.1em helvetica neue,open sans,sans-serif;
+        color: #aeaeae;
+        margin-top: 200px;
+        font-size: 30px; 
+        line-height: 36px;
+        padding-left: 10px;">Installing</h5>
+
+        <span style="font-family: Consolas,Monaco,andale mono,monospace; 
+        float: right; 
+        width: 300px;
+        border: 1px solid green; 
+        padding: 5px 10px; 
+        margin: 2px; 
+        padding-right: 10%; 
+        border-radius: 3px;">$  npm install @arkius/blockchain-lib</span>
+    </div>
+
+    <hr size="5px" color="green">
+    
+    <p>This is the npm library for Arkius Contracts. All the functions of the contracts can be accessed
+        and run with this library.
+    </p> 
+    
+    <p> You need to install the library first into your npm project with..</p>
+    <div 
+    style="color: #4fbf40;
+    font-family: Consolas,Monaco,andale mono,monospace;
+    padding: 3px 15px;
+    border-radius: 3px;
+    overflow: auto;
+    border: 1px solid #ddd;
+    text-align: left;
+    background: black;
+    box-sizing: border-box;
+    font-size: 14px;
+    line-height: 2;">
+        <p>$  npm install @arkius/blockchain-lib</p>
+    </div>
+
+    <p>Now assuming you’ve installed the blockchain-library, you need to create
+        a file first, lets say <strong>test.js</strong> and import the library.</p>
+    
+        <div style="padding: 13px 15px;
+        margin-top: 0;
+        margin-bottom: 24px;
+        font-size: 1em;
+        background: #f7f7f7;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        overflow-x: auto;
+        box-sizing: border-box;
+        font-family: monospace,monospace;
+        display: block;">
+        <p>   
+             <span style="color: blue;">const </span>
+             <span style="color: cadetblue;"> arkius </span>
+             <span style="color: rgb(233, 39, 136);">= require</span
+            ><span style="color: black">(</span
+            ><span style="color: orangered;">'@arkius/blockchain-lib'</span
+            ><span style="color: black">)</span>
+             <span style="color: gray;">// Importing the arkius npm library</span>
+        </p>
+        </div>
+
+    <p>After importing the library, you need to setup your accounts, for which you need your accounts private key.</p>
+    <p>It's good to create a '.env' file to store all your accounts private key.</p>
+    
+    <p>So create a <strong>.env</strong> file and write your private keys, it will look similar to this.</p>
+    
+    <div style="padding: 13px 15px;
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 1em;
+    background: #f7f7f7;
+    border-radius: 2px;
+    border: 1px solid #ddd;
+    overflow-x: auto;
+    box-sizing: border-box;
+    font-family: monospace,monospace;
+    display: block;">
+        <p>acc1_key = <span style="color: orangered;">"YOUR_PRIVATE_KEY_ACCOUNT1"</span></p>
+    </div>
+
+    <p>Once your Environment file is setup you can import .env file into your main file that is <strong>test.js</strong></p>
+
+    <div style="padding: 13px 15px;
+        margin-top: 0;
+        margin-bottom: 24px;
+        font-size: 1em;
+        background: #f7f7f7;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        overflow-x: auto;
+        box-sizing: border-box;
+        font-family: monospace,monospace;
+        display: block;">
+            <p>
+                 <span style="color: rgb(233, 39, 136);">require</span
+                ><span style="color: black">(</span
+                ><span style="color: orangered;">'dotenv'</span
+                ><span style="color: black">).</span
+                ><span style="color: cadetblue;">config</span
+                ><span style="color: black">({</span
+                ><span style="color: blue;">path:</span
+                ><span style="color: orangered;">'PATH'</span
+                ><span style="color: black">})</span>
+                 <span style="color: gray;">// Importing the dotenv library</span>
+            </p>
+            <p>
+                 <span style="color: blue;">const </span>
+                <span style="color: cadetblue;"> arkius </span>
+                <span style="color: rgb(233, 39, 136);">= require</span
+                ><span style="color: black">(</span
+                ><span style="color: orangered;">'@arkius/blockchain-lib'</span
+                ><span style="color: black">)</span>
+                 <span style="color: gray;">// Importing the arkius npm library</span>
+            </p> 
+        </div>
+
+        <hr size="5px" color="green">
+
+        <h3>Structure of the Function</h3>
+        <p>You can call the functions of the library, as described below:- </p>
+        <div style="padding: 13px 15px;
+        margin-top: 0;
+        margin-bottom: 24px;
+        font-size: 1em;
+        background: #f7f7f7;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        overflow-x: auto;
+        box-sizing: border-box;
+        font-family: monospace,monospace;
+        display: block;">
+            <p>
+                <span style="color: rgb(233, 39, 136);">await</span>
+                <span style="color: cadetblue;">arkius</span
+               ><span style="color: black">.</span
+               ><span style="color: brown;">module</span
+               ><span style="color: black">.</span
+               ><span style="color: orangered;">METHOD</span
+               ><span style="color: black">(</span
+               ><span style="color: yellowgreen">...parameter,</span>
+               <span style="color: blue;">index,</span>
+               <span style="color: orangered;">gasReq</span
+               ><span style="color: black">)</span>
+           </p>
+        </div>
+        <p>Where:</p>
+        <ul>
+            <li><strong>await</strong> is used for <strong>async function.</strong></li>
+            <li><strong>arkius</strong> is an instance of the <strong>library.</strong></li>
+            <li><strong>module</strong> are the part of <strong>library.</strong> There is 1 module for every contract.</li>
+            <li><strong>METHOD</strong> are the functions of the <strong>library</strong> in camel case.</li>
+            <li><strong>...parameter</strong> are the <strong>Parameters of functions.</strong></li>
+            <li><strong>index</strong> is the index of the <strong>Multiple logged in accounts.</strong></li>
+            <li><strong>gasReq</strong> is the amount of <strong>gas Required to execute the transaction.</strong> </li>
+        </ul>
+
+        <hr size="5px" color="green">
+
+        <h3>Logging in Account</h3>
+
+        <p>You can test your library by logging in account with your private key.</p>
+        <div style="padding: 13px 15px;
+        margin-top: 0;
+        margin-bottom: 24px;
+        font-size: 1em;
+        background: #f7f7f7;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        overflow-x: auto;
+        box-sizing: border-box;
+        font-family: monospace,monospace;
+        display: block;">
+            <p>
+                 <span style="color: rgb(233, 39, 136);">require</span
+                ><span style="color: black">(</span
+                ><span style="color: orangered;">'dotenv'</span
+                ><span style="color: black">).</span
+                ><span style="color: cadetblue;">config</span
+                ><span style="color: black">({</span
+                ><span style="color: blue;">path:</span
+                ><span style="color: orangered;">'PATH'</span
+                ><span style="color: black">})</span>
+                 <span style="color: gray;">// Importing the dotenv library</span>
+            </p>
+            <p>
+                 <span style="color: blue;">const </span>
+                 <span style="color: cadetblue;"> arkius </span>
+                 <span style="color: rgb(233, 39, 136);">= require</span
+                ><span style="color: black">(</span
+                ><span style="color: orangered;">'@arkius/blockchain-lib'</span
+                ><span style="color: black">)</span>
+                 <span style="color: gray;">// Importing the arkius npm library</span>
+            </p> 
+            <p>
+                 <span style="color: rgb(233, 39, 136);;">await</span>
+                 <span style="color: cadetblue;">arkius.util.</span
+                ><span style="color: yellowgreen">loginWithPrivateKey</span
+                ><span style="color: black;">(</span
+                ><span style="color: blue;">process.env.acc1_key</span
+                ><span style="color: black;">);</span>
+                <span style="color: gray;">// Loging in with private key </span>
+            </p>
+        </div>
+
+        <p>You can log in with metamask also.</p>
+        <div style="padding: 13px 15px;
+        margin-top: 0;
+        margin-bottom: 24px;
+        font-size: 1em;
+        background: #f7f7f7;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        overflow-x: auto;
+        box-sizing: border-box;
+        font-family: monospace,monospace;
+        display: block;">
+            <p>
+                 <span style="color: blue;">const </span>
+                 <span style="color: cadetblue;"> arkius </span>
+                 <span style="color: rgb(233, 39, 136);">= require</span
+                ><span style="color: black">(</span
+                ><span style="color: orangered;">'@arkius/blockchain-lib'</span
+                ><span style="color: black">)</span>
+                 <span style="color: gray;">// Importing the arkius npm library</span>
+            </p> 
+            <p>
+                 <span style="color: rgb(233, 39, 136);;">await</span>
+                 <span style="color: cadetblue;">arkius.util.</span
+                ><span style="color: yellowgreen">connectMetamask</span
+                ><span style="color: black;">(</span
+                ><span style="color: black;">);</span>
+                 <span style="color: gray;">// Logging in with Metamask </span>
+            </p>
+        </div>
+
+</div>
+
+<nav style="position:fixed;right:0;height:100%;padding-bottom: 40px; margin-top: 0px">
+    <h2><a href="index1.html">Home</a></h2>
+    <h3><a href="html/member.html">Membership NFT</a></h3>
+    <h3><a href="html/certifier.html">Certifier NFT</a></h3>
+    <h3><a href="html/seeker.html">Seeker NFT</a></h3>
+    <h3><a href="html/arkiusToken.html">Token</a></h3>
+    <h3><a href="html/tokenManager.html">Manager</a></h3>
+    <h3><a href="html/campaign.html">Campaign</a></h3>
+    <h3><a href="html/certification.html">Certification</a></h3>
+    <h3><a href="html/entity.html">Entity</a></h3>
+    <h3><a href="html/marketplace.html">Marketplace</a></h3>
+    <h3><a href="html/multiwallet.html">Multiwallet</a></h3>
+</nav>
+
+<br class="clear">
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

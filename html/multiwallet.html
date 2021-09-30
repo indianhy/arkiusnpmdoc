@@ -1,0 +1,3544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Multiwallet</title>
+
+    <script src="../scripts/prettify/prettify.js"> </script>
+    <script src="../scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="../styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="../styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Multiwallet</h1>
+        <p>This is used for transferring tokens from campaign to members and stores the campaign
+            funding done by the attention seekers. Once the user clicks on ad, they can claim
+            their token over here.
+        </p>
+
+        <h3>Structure</h3>
+
+        <div style="padding: 13px 15px;
+        margin-top: 0;
+        margin-bottom: 24px;
+        font-size: 1em;
+        background: #f7f7f7;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        overflow-x: auto;
+        box-sizing: border-box;
+        font-family: monospace,monospace;
+        display: block;">
+            <p>
+                <span style="color: rgb(233, 39, 136);">await</span>
+                <span style="color: cadetblue;">arkius</span
+               ><span style="color: black">.</span
+               ><span style="color: brown;">multiwallet</span
+               ><span style="color: black">.</span
+               ><span style="color: orangered;">Functions</span
+               ><span style="color: black">(</span
+               ><span style="color: yellowgreen">...parameter,</span>
+               <span style="color: blue;">index,</span>
+               <span style="color: orangered;">gasReq</span
+               ><span style="color: black">)</span>
+           </p>
+        </div>
+        <p>Where:</p>
+        <ul>
+            <li><strong>await</strong> is used for <strong>async function.</strong></li>
+            <li><strong>arkius</strong> is an instance of the <strong>library.</strong></li>
+            <li><strong>multiwallet</strong> is a module of <strong>library for Multiwallet Contract.</strong></li>
+            <li><strong>Functions</strong> are the functions of the <strong>Multiwallet Contract</strong> in camel case.</li>
+            <li><strong>...parameter</strong> are the <strong>Parameters of functions.</strong></li>
+            <li><strong>index</strong> is the index of the <strong>Multiple logged in accounts.</strong> Default is 0.</li>
+            <li><strong>gasReq</strong> is the amount of <strong>gas Required to execute the transaction.</strong> Default value is already given.</li>
+        </ul>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="acceptOwnership"><span class="type-signature">(async) </span>acceptOwnership<span class="signature">(index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Accept the ownership of the contract. This works only if owner
+of the contract nominated someone to be an owner of the contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line113">line 113</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="accessible"><span class="type-signature">(async) </span>accessible<span class="signature">(address)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns true/false if `address` can transfer 
+tokens to and from multiwallet contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">address of user/contract.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    true or false
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="campaignContract"><span class="type-signature">(async) </span>campaignContract<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line29">line 29</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    address of the campaign contract.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="claim"><span class="type-signature">(async) </span>claim<span class="signature">(type, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Function to transfer claimable amount to the caller.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Recipient Type of the person.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                      in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line276">line 276</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="claimableBalance"><span class="type-signature">(async) </span>claimableBalance<span class="signature">(type, account)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    types of member:- 
+ { 0 - Member
+   1 - Certifier
+   2 - Attention Seeker
+   3 - Treasury
+   4 - Devfund
+   5 - Arkius PBC License }
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">type of member.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">address of member.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line62">line 62</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the amount that can be claimable by `account`.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="deMultiwallet"><span class="type-signature">(async) </span>deMultiwallet<span class="signature">(account, type, value, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Function to make amount claimable in multiwallet.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Address of the person whose multiwallet is to be updated.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Recipient Type of the person.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Amount to be deMultiwalleted(made claimable).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line252">line 252</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="governanceTokenAddress"><span class="type-signature">(async) </span>governanceTokenAddress<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line94">line 94</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the address of governance token contract.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="multiwallet"><span class="type-signature">(async) </span>multiwallet<span class="signature">(account, type, value, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Function to add values in multiwallet for Member, Certifier and AttentionSeeker
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Address of the person in whose multiwallet amount is to be added.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">RecipientType of the person.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Amount to be added to multiwallet.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line226">line 226</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="multiwalletBalance"><span class="type-signature">(async) </span>multiwalletBalance<span class="signature">(type, account)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">type of member.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">address of member.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line79">line 79</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the balance of `account` in multiwallet.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="multiwalletTransfer"><span class="type-signature">(async) </span>multiwalletTransfer<span class="signature">(fromAccount, fromType, toAccount, toType, value, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Function to transfer amount within multiwallet and make it claimable.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fromAccount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Address of the member from whom multiwallet amount is to be transferred.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fromType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Recipient Type of the member from whom multiwallet amount is to be transferred.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>toAccount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Address of the member where multiwallet amount is to be transferred.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>toType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Recipient Type of the member where multiwallet amount is to be transferred.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Amount to be deMultiwalleted(made claimable).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                             in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line302">line 302</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="nominateNewOwner"><span class="type-signature">(async) </span>nominateNewOwner<span class="signature">(account, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Nominate other member of the organization to be the owner of the contract.
+Only the current owner can nominate other members of the organisation.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">address of the member of the organisation. It can be a contract also.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line134">line 134</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="owner"><span class="type-signature">(async) </span>owner<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the owner of the multiwallet contract.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renounceOwnership"><span class="type-signature">(async) </span>renounceOwnership<span class="signature">(index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Owner Quitting the ownership of the contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line155">line 155</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setAllowance"><span class="type-signature">(async) </span>setAllowance<span class="signature">(address, value, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Contract owner gives permission to `address` to call
+onlyAllowed functions such as transferring tokens to
+and from multiwallet contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">address of the member/contract.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">true or false</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line178">line 178</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setCampaignContract"><span class="type-signature">(async) </span>setCampaignContract<span class="signature">(address, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It can update the address of the campaign contract.
+Requirement:- The caller must be the owner of the multiwallet contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">address of campaign contract.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line202">line 202</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setGovernanceToken"><span class="type-signature">(async) </span>setGovernanceToken<span class="signature">(address, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It can update the address of the token contract.
+Requirement:- The caller must be the owner of the multiwallet contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">address of token contract.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line329">line 329</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="unMultiwallet"><span class="type-signature">(async) </span>unMultiwallet<span class="signature">(account, type, value, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Function to directly transfer back amount, instead of making it claimable.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Address of the person whose multiwallet is to be updated.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Recipient Type of the person.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Amount to be deMultiwalleted(made claimable).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                             in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="multiwallet.js.html">multiwallet.js</a>, <a href="multiwallet.js.html#line353">line 353</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav style="position:fixed;right:0;overflow-y:scroll;height:100%;padding-bottom: 40px; margin-top: 0px">
+    <h2><a href="../index1.html">Home</a></h2>
+    <h3>Functions</h3>
+    <ul>
+        <li><a href="multiwallet.html#acceptOwnership">acceptOwnership</a></li>
+        <li><a href="multiwallet.html#accessible">accessible</a></li>
+        <li><a href="multiwallet.html#campaignContract">campaignContract</a></li>
+        <li><a href="multiwallet.html#claim">claim</a></li>
+        <li><a href="multiwallet.html#claimableBalance">claimableBalance</a></li>
+        <li><a href="multiwallet.html#deMultiwallet">deMultiwallet</a></li>
+        <li><a href="multiwallet.html#governanceTokenAddress">governanceTokenAddress</a></li>
+        <li><a href="multiwallet.html#multiwallet">multiwallet</a></li>
+        <li><a href="multiwallet.html#multiwalletBalance">multiwalletBalance</a></li>
+        <li><a href="multiwallet.html#multiwalletTransfer">multiwalletTransfer</a></li>
+        <li><a href="multiwallet.html#nominateNewOwner">nominateNewOwner</a></li>
+        <li><a href="multiwallet.html#owner">owner</a></li>
+        <li><a href="multiwallet.html#renounceOwnership">renounceOwnership</a></li>
+        <li><a href="multiwallet.html#setAllowance">setAllowance</a></li>
+        <li><a href="multiwallet.html#setCampaignContract">setCampaignContract</a></li>
+        <li><a href="multiwallet.html#setGovernanceToken">setGovernanceToken</a></li>
+        <li><a href="multiwallet.html#unMultiwallet">unMultiwallet</a></li>
+    </ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Aug 31 2021 17:17:24 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="../scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,4526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Marketplace</title>
+
+    <script src="../scripts/prettify/prettify.js"> </script>
+    <script src="../scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="../styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="../styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Marketplace</h1>
+        <p>These functions can only be called by contract owner. Contract owner can serve the ads,
+            or can calls a function once the ad got clicked or expired.
+        </p>
+
+        <h3>Structure</h3>
+
+        <div style="padding: 13px 15px;
+        margin-top: 0;
+        margin-bottom: 24px;
+        font-size: 1em;
+        background: #f7f7f7;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        overflow-x: auto;
+        box-sizing: border-box;
+        font-family: monospace,monospace;
+        display: block;">
+            <p>
+                <span style="color: rgb(233, 39, 136);">await</span>
+                <span style="color: cadetblue;">arkius</span
+               ><span style="color: black">.</span
+               ><span style="color: brown;">marketplace</span
+               ><span style="color: black">.</span
+               ><span style="color: orangered;">Functions</span
+               ><span style="color: black">(</span
+               ><span style="color: yellowgreen">...parameter,</span>
+               <span style="color: blue;">index,</span>
+               <span style="color: orangered;">gasReq</span
+               ><span style="color: black">)</span>
+           </p>
+        </div>
+        <p>Where:</p>
+        <ul>
+            <li><strong>await</strong> is used for <strong>async function.</strong></li>
+            <li><strong>arkius</strong> is an instance of the <strong>library.</strong></li>
+            <li><strong>marketplace</strong> is a module of <strong>library for Marketplace Contract.</strong></li>
+            <li><strong>Functions</strong> are the functions of the <strong>Marketplace Contract</strong> in camel case.</li>
+            <li><strong>...parameter</strong> are the <strong>Parameters of functions.</strong></li>
+            <li><strong>index</strong> is the index of the <strong>Multiple logged in accounts.</strong> Default is 0.</li>
+            <li><strong>gasReq</strong> is the amount of <strong>gas Required to execute the transaction.</strong> Default value is already given.</li>
+        </ul>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="acceptOwnership"><span class="type-signature">(async) </span>acceptOwnership<span class="signature">(index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Accept the ownership of the contract. This works only if owner
+of the contract nominated someone to be an owner of the contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line202">line 202</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="adClickedBatch"><span class="type-signature">(async) </span>adClickedBatch<span class="signature">(adIds, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It must be called when the ad is clicked. It makes the amount claimable,
+and the recepients can claim the amount from multiwallet contract.
+Requirement:- The caller must be the owner of the marketplace contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>adIds</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;uint></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">ids of the served ad.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                        in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line436">line 436</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="adExpiredBatch"><span class="type-signature">(async) </span>adExpiredBatch<span class="signature">(adIds, numerator, denominator, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It must be called when the ad is expired. It makes the amount claimable,
+and the seeker and treasury can claim the amount from multiwallet contract.
+Requirement:- The caller must be the owner of the marketplace contract.
+
+On every ad Expires a small amount of token (cutAmount) are transferred to
+the treasury and the rest of the tokens became claimabe by the owner of the campaign.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>adIds</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;uint></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">id of the served ads.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>numerator</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">used to calculate cutAmount.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>denominator</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">used to calculate cutAmount.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                             in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line469">line 469</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="ads"><span class="type-signature">(async) </span>ads<span class="signature">(adId)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>adId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">id of ads served.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line155">line 155</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the details of served ads.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="adServedBatch"><span class="type-signature">(async) </span>adServedBatch<span class="signature">(members, campaignIds, certifiers, certifierWeights, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Serves the ad to the members.
+Requirement:- The caller must be the owner of the marketplace contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>members</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;address></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">array of members to which the ad is about to serve.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>campaignIds</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;uint></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">array of ids of campaign.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>certifiers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Array.&lt;address>></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">array of array of address of certifiers
+                                        for every `campaignIds[x]`.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>certifierWeights</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Array.&lt;uint>></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">array of array of certifier weight, used to calculate
+                                        every certifier share amount for every `campaignIds[x]`.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                                        in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    3000000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line503">line 503</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="allAdIds"><span class="type-signature">(async) </span>allAdIds<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line142">line 142</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    array of id of all ads served.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="campaignAddress"><span class="type-signature">(async) </span>campaignAddress<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line106">line 106</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    address of campaign contract.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="checkEarnedRewards"><span class="type-signature">(async) </span>checkEarnedRewards<span class="signature">(adId, type, receiver)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It returns how much amount does a `receiver` of 
+`type` type will receive on `adId` click.
+types of Receiver:- 
+ { 0 - Member
+   1 - Certifier
+   2 - Attention Seeker
+   3 - Treasury
+   4 - Devfund
+   5 - Arkius PBC License }
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>adId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">id of served ad.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">type of `receiver`.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>receiver</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">address of the user.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line181">line 181</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the amount `receiver` of type `type` receive for a click on `adId`.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="devfundAddress"><span class="type-signature">(async) </span>devfundAddress<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line46">line 46</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    address of Devfund.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="governanceTokenAddress"><span class="type-signature">(async) </span>governanceTokenAddress<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line130">line 130</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    address of token contract.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="MultiwalletContract"><span class="type-signature">(async) </span>MultiwalletContract<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line118">line 118</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    address of multiwallet contract.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="nominateNewOwner"><span class="type-signature">(async) </span>nominateNewOwner<span class="signature">(account, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Nominate other member of the organization to be the owner of the contract.
+Only the current owner can nominate other members of the organisation.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>account</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">address of the member of the organisation. It can be a contract also.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line223">line 223</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="owner"><span class="type-signature">(async) </span>owner<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line34">line 34</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    address of owner of marketplace contract.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="pbcLicenseAddress"><span class="type-signature">(async) </span>pbcLicenseAddress<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line58">line 58</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    address of PBC License.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="precision"><span class="type-signature">(async) </span>precision<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line70">line 70</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    represents the value of 1 token.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renounceOwnership"><span class="type-signature">(async) </span>renounceOwnership<span class="signature">(index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Owner Quitting the ownership of the contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line244">line 244</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="rewardShare"><span class="type-signature">(async) </span>rewardShare<span class="signature">(recepient)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    types of Recepient:- 
+ { 0 - Member
+   1 - Certifier
+   2 - Attention Seeker
+   3 - Treasury
+   4 - Devfund
+   5 - Arkius PBC License }
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>recepient</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">type of the user.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line20">line 20</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the reward share `recepient` will receive for every ad click.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="totalShare"><span class="type-signature">(async) </span>totalShare<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line82">line 82</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the total share.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="treasuryAddress"><span class="type-signature">(async) </span>treasuryAddress<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line94">line 94</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    address of treasury.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateCampaignAddress"><span class="type-signature">(async) </span>updateCampaignAddress<span class="signature">(address, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It can update the address of the campaign contract.
+Requirement:- The caller must be the owner of the marketplace contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">address of the campaign contract.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line265">line 265</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateDevfundAddress"><span class="type-signature">(async) </span>updateDevfundAddress<span class="signature">(address, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It can update the address of the devFund.
+Requirement:- The caller must be the owner of the marketplace contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">address of the devFund.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line288">line 288</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateMultiwalletContract"><span class="type-signature">(async) </span>updateMultiwalletContract<span class="signature">(address, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It can update the address of the multiwallet contract.
+Requirement:- The caller must be the owner of the marketplace contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">address of the multiwallet contract.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line311">line 311</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updatePBCAddress"><span class="type-signature">(async) </span>updatePBCAddress<span class="signature">(address, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It can update the address of the PBC.
+Requirement:- The caller must be the owner of the marketplace contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">address of the PBC.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line334">line 334</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateRewardShare"><span class="type-signature">(async) </span>updateRewardShare<span class="signature">(type, share, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Updates the amount, that `type` will receive on adclick.
+Requirement:- The caller must be the owner of the marketplace contract.
+types of Receiver:- 
+ { 0 - Member
+   1 - Certifier
+   2 - Attention Seeker
+   3 - Treasury
+   4 - Devfund
+   5 - Arkius PBC License }
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">type of Recepient.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>share</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">share of amount, `type` will receive on ad click.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                      in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line411">line 411</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateTokenAddress"><span class="type-signature">(async) </span>updateTokenAddress<span class="signature">(address, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It can update the address of the token contract.
+Requirement:- The caller must be the owner of the marketplace contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">address of the token contract.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line357">line 357</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateTreasuryAddress"><span class="type-signature">(async) </span>updateTreasuryAddress<span class="signature">(address, index, gasReq)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    It can update the address of the treasury.
+Requirement:- The caller must be the owner of the marketplace contract.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>address</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">address</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">address of the treasury.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">specify the account number index if you logged
+                         in with multiple accounts, default is 0.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gasReq</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">uint</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    300000
+                
+                </td>
+            
+
+            <td class="description last">gas to execute a transaction.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="marketplace.js.html">marketplace.js</a>, <a href="marketplace.js.html#line380">line 380</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    receipt of successful transaction in the blockchain.
+</div>
+
+
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav style="position:fixed;right:0;overflow-y:scroll;height:100%;padding-bottom: 40px; margin-top: 0px">
+    <h2><a href="../index1.html">Home</a></h2>
+    <h3>Functions</h3>
+    <ul>
+        <li><a href="marketplace.html#acceptOwnership">acceptOwnership</a></li>
+        <li><a href="marketplace.html#adClickedBatch">adClickedBatch</a></li>
+        <li><a href="marketplace.html#adExpiredBatch">adExpiredBatch</a></li>
+        <li><a href="marketplace.html#ads">ads</a></li>
+        <li><a href="marketplace.html#adServedBatch">adServedBatch</a></li>
+        <li><a href="marketplace.html#allAdIds">allAdIds</a></li>
+        <li><a href="marketplace.html#campaignAddress">campaignAddress</a></li>
+        <li><a href="marketplace.html#checkEarnedRewards">checkEarnedRewards</a></li>
+        <li><a href="marketplace.html#devfundAddress">devfundAddress</a></li>
+        <li><a href="marketplace.html#governanceTokenAddress">governanceTokenAddress</a></li>
+        <li><a href="marketplace.html#MultiwalletContract">MultiwalletContract</a></li>
+        <li><a href="marketplace.html#nominateNewOwner">nominateNewOwner</a></li>
+        <li><a href="marketplace.html#owner">owner</a></li>
+        <li><a href="marketplace.html#pbcLicenseAddress">pbcLicenseAddress</a></li>
+        <li><a href="marketplace.html#precision">precision</a></li>
+        <li><a href="marketplace.html#renounceOwnership">renounceOwnership</a></li>
+        <li><a href="marketplace.html#rewardShare">rewardShare</a></li>
+        <li><a href="marketplace.html#totalShare">totalShare</a></li>
+        <li><a href="marketplace.html#treasuryAddress">treasuryAddress</a></li>
+        <li><a href="marketplace.html#updateCampaignAddress">updateCampaignAddress</a></li>
+        <li><a href="marketplace.html#updateDevfundAddress">updateDevfundAddress</a></li>
+        <li><a href="marketplace.html#updateMultiwalletContract">updateMultiwalletContract</a></li>
+        <li><a href="marketplace.html#updatePBCAddress">updatePBCAddress</a></li>
+        <li><a href="marketplace.html#updateRewardShare">updateRewardShare</a></li>
+        <li><a href="marketplace.html#updateTokenAddress">updateTokenAddress</a></li>
+        <li><a href="marketplace.html#updateTreasuryAddress">updateTreasuryAddress</a></li>
+    </ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Aug 31 2021 15:39:13 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="../scripts/linenumber.js"> </script>
+</body>
+</html>
